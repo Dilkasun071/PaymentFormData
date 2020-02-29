@@ -1,0 +1,1 @@
+select SUM(price) from tbl_subject where sub_id IN (select sub_id from tbl_student_subject);
