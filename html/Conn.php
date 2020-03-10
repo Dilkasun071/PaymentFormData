@@ -1,12 +1,12 @@
 
 <?php
 //start session
-session_start();
+//session_start();
 //define server details
-define('DB_SERVER','localhost');
+define('DB_SERVER','192.168.8.100');
 define('DB_USER','root');
 define('DB_PASS' ,'');
-define('DB_NAME', 'wisdomnew');
+define('DB_NAME', 'wisdom');
 
 //dabatse class
 class DB_con{
