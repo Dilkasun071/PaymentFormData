@@ -60,7 +60,8 @@
       echo "<span class='badge badge-primary badge-pill'>"; echo $row["value"];
       echo"</span>";
       echo"</li>";
-    }?>
+    }
+    ?>
     </ul>  
   </div>
 
@@ -72,76 +73,79 @@
   ?>
   
   <div class="col-md-6">
-  <h3>Payment Details</h3>
-  <form class="needs-validation" novalidate action="./card-payment.php" method="post">
-  <div>
-    <div class="form-row">
-      <div class="col-md-6 mb-6">
-        <label for="validationTooltip01">First name</label>
-        <input type="text" class="form-control" id="txtFirstName" placeholder="First name" <?php echo 'value="' . $row['first_name'] . '"'; ?> required>
-        <div class="valid-tooltip">
-          Looks good!
+    <h3>Payment Details</h3>
+    <form class="needs-validation" novalidate action="./card-payment.php" method="post">
+    <div>
+      <div class="form-row">
+        <div class="col-md-6 mb-6">
+          <label for="validationTooltip01">First name</label>
+          <input type="text" class="form-control" id="txtFirstName" placeholder="First name" <?php echo 'value="' . $row['first_name'] . '"'; ?> required>
+          <div class="valid-tooltip">
+            Looks good!
+          </div>
+        </div>
+        <div class="col-md-6 mb-6">
+          <label for="validationTooltip02">Last name</label>
+          <input type="text" class="form-control" id="txtLastName" placeholder="Last name" <?php echo 'value="' . $row['last_name'] . '"'; ?> required>
+          <div class="valid-tooltip">
+            Looks good!
+          </div>
         </div>
       </div>
-      <div class="col-md-6 mb-6">
-        <label for="validationTooltip02">Last name</label>
-        <input type="text" class="form-control" id="txtLastName" placeholder="Last name" <?php echo 'value="' . $row['last_name'] . '"'; ?> required>
-        <div class="valid-tooltip">
-          Looks good!
+      <div class="form-row">
+        <div class="col-md-6 mb-6">
+          <label for="validationTooltip03">Branch</label>
+          <input type="text" class="form-control" id="txtBranch" placeholder="Branch Name:" required>
+          <div class="invalid-tooltip">
+            Please provide a valid city.
+          </div>
+        </div>
+        <div class="col-md-6 mb-6">
+          <label for="validationTooltip03">Fee</label>
+          <!-- calculate payment -->
+          <?php
+            $sql=$fetchdata->calfee('10012');
+            $row=mysqli_fetch_array($sql);
+          ?>
+          <input type="text" class="form-control" id="txtAmountForPay" value=<?php echo $row['fee']?> required>
+          <div class="invalid-tooltip"></div>
         </div>
       </div>
-    <div class="form-row">
-      <div class="col-md-6 mb-6">
-      <label for="validationTooltip03">Branch</label>
-      <input type="text" class="form-control" id="txtBranch" placeholder="Branch Name:" required>
-      <div class="invalid-tooltip">
-        Please provide a valid city.
-      </div>
-    </div>
-    <div class="col-md-6 mb-6">
-     <label for="validationTooltip03">Fee</label>
-      <!-- calculate payment -->
-      <?php
-          $sql=$fetchdata->calfee('10012');
-          $row=mysqli_fetch_array($sql);
-      ?>
-        <input type="text" class="form-control" id="txtAmountForPay" value=<?php echo $row['fee']?> required>
-        <div class="invalid-tooltip">    
+      <div class="form-row">
+        <div class="col-md-12 mb-12">
+          <label for="cname">Phone Number</label>
+          <input class="form-control" type="text" id="phoneNo" name="phoneNo" placeholder="+9471234567">
         </div>
       </div>
+      <div class="form-row">
+        <!-- <label for="cname">Name on Card</label>
+        <input class="form-control" type="text" id="cname" name="cardname" placeholder="Name on Card">
+        <label for="ccnum">Credit card number</label>
+        <input class="form-control" type="text" id="ccnum" name="cardnumber" placeholder="0000-0000-0000-0000">
+        <label for="expmonth">Exp Month</label>
+        <input class="form-control" type="text" id="expmonth" name="expmonth" placeholder="Exp. Month"> -->
+      </div>
+      
+      <div class="form-row">
+        <div class="col-md-3 mb-3">
+          <!-- <label for="expyear">Exp Year</label>
+          <input class="form-control" type="text" id="expyear" name="expyear" placeholder="YYYY">
+          </div>
+          <div class="col-md-3 mb-3">
+            <label for="cvv">CVV</label>
+            <input class="form-control" type="text" id="cvv" name="cvv" placeholder="CVV">
+          </div> -->
+        </div>
+        <div class="col-md-12 mb-12" style="width: 100%">
+          <button class="btn btn-primary" id="btn_stripe_checkout" type="button">Submit</button>
+        </div>
       </div>
     </div>
-  <div>
-  <div class="form-row">
-    <!-- <label for="cname">Name on Card</label>
-    <input class="form-control" type="text" id="cname" name="cardname" placeholder="Name on Card">
-    <label for="ccnum">Credit card number</label>
-    <input class="form-control" type="text" id="ccnum" name="cardnumber" placeholder="0000-0000-0000-0000">
-    <label for="expmonth">Exp Month</label>
-    <input class="form-control" type="text" id="expmonth" name="expmonth" placeholder="Exp. Month"> -->
+    </form>
   </div>
-  </div>
-  
-  <div class="row">
-    <div class="col-md-3 mb-3">
-      <!-- <label for="expyear">Exp Year</label>
-      <input class="form-control" type="text" id="expyear" name="expyear" placeholder="YYYY">
-      </div>
-      <div class="col-md-3 mb-3">
-        <label for="cvv">CVV</label>
-        <input class="form-control" type="text" id="cvv" name="cvv" placeholder="CVV">
-      </div> -->
-    </div>
-    <div style="width: 100%">
-    <button class="btn btn-primary" id="btn_stripe_checkout" type="button">Submit</button>
-    </div>
-  </div>
-	</form>
-</div>
 
-<!--right row-->
-<div class="col-md-3"></div>
-</div>
+  <!--right row-->
+  <div class="col-md-3"></div>
 </div>
 </body>
 
@@ -185,6 +189,7 @@ $(document).ready(function(){
                     'payment_id': token.id,
                     'email': token.email,
                     'name': `${$("#txtFirstName").val()} ${$("#txtLastName").val()}`,
+                    'phoneNo': $("#phoneNo").val(),
                     'currency': 'LKR',
                     'payment_amount': $("#txtAmountForPay").val() * 100,
                     'payment_status': 'success',

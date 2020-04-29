@@ -56,6 +56,23 @@ class Payment
 	}
 }
 
+function sendSms($phoneNo){
+    $username = "chatrpga2020";
+    $password = "esm38099";
+    $from = "Wisdom";
+    $msg = "hello world";
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, "https://www.easysendsms.com/sms/bulksms-api/bulksms-api");
+    curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "GET"); 
+    curl_setopt($ch, CURLOPT_POSTFIELDS, `username=$username&password=$password&from=$from&to=$phoneNo&text=$msg&type=0`);
+
+    curl_setopt($ch, CURLOPT_TIMEOUT, 30);
+
+    $response = curl_exec($ch);
+
+
+}
+
 if(isset($_POST)) {
     $data = array(
         "token_id" => $_POST["payment_id"],
@@ -64,6 +81,9 @@ if(isset($_POST)) {
         "item_no" => $_POST["item_no"],
         "amount" => $_POST["payment_amount"]
     );
+
+    $phoneNo = $_POST["phoneNo"];
+    sendSms($phoneNo);
 
     $res = new Payment();
 
